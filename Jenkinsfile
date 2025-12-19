@@ -5,7 +5,10 @@ pipeline {
     maven 'maven-3'
   }
   environment {
-    SONAR_TOKEN = credentials('sonar-token')
+    SONAR_TOKEN = credentials('sonar')
+    SONAR_ORG = 'tranquangthuan1211'
+    SONAR_PROJECT_KEY = 'tranquangthuan1211_ci_pipeline'
+    SONAR_PROJECT_NAME = 'ci_pipeline'
   }
 
   stages {
@@ -26,9 +29,9 @@ pipeline {
         withSonarQubeEnv('sonarcloud') {
             sh """
                     mvn sonar:sonar \
-                      -Dsonar.organization=tranquangthuan1211 \
-                      -Dsonar.projectKey=tranquangthuan1211_ci_pipeline \
-                      -Dsonar.projectName=ci_pipeline
+                      -Dsonar.organization=${SONAR_ORG} \
+                      -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
+                      -Dsonar.projectName=${SONAR_PROJECT_NAME}
                   """
         }
       }
