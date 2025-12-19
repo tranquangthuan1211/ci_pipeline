@@ -24,10 +24,7 @@ pipeline {
     stage('Sonar Analysis') {
       steps {
         withSonarQubeEnv('sonarcloud') {
-          sh '''
-            mvn sonar:sonar \
-              -Dsonar.login=$SONAR_TOKEN
-          '''
+              sh 'mvn sonar:sonar'
         }
       }
     }
