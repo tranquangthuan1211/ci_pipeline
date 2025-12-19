@@ -23,12 +23,13 @@ pipeline {
 
     stage('Sonar Analysis') {
       steps {
-        withSonarQubeEnv('sonarqube') {
+        withSonarQubeEnv('sonarcloud') {
             sh """
-            mvn clean verify sonar:sonar \
-              -Dsonar.projectKey=ci_pipeline \
-              -Dsonar.projectName=tranquangthuan1211_ci_pipeline
-            """
+                    mvn sonar:sonar \
+                      -Dsonar.organization=tranquangthuan1211 \
+                      -Dsonar.projectKey=tranquangthuan1211_ci_pipeline \
+                      -Dsonar.projectName=ci_pipeline
+                  """
         }
       }
     }
