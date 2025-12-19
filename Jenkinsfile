@@ -23,15 +23,13 @@ pipeline {
 
     stage('Sonar Analysis') {
       steps {
-        withSonarQubeEnv('sonarcloud') {
-              sh '''
-                mvn sonar:sonar \
-                  -Dsonar.login=$SONAR_TOKEN \
-                  -Dsonar.projectKey=tranquangthuan1211_ci_pipeline \
-                  -Dsonar.organization=tranquangthuan1211\
-                  -Dsonar.host.url=https://sonarcloud.io
-              '''
-            }
+        withSonarQubeEnv('sonarqube') {
+            sh """
+            mvn clean verify sonar:sonar \
+              -Dsonar.projectKey=ci_pipeline \
+              -Dsonar.projectName=tranquangthuan1211_ci_pipeline
+            """
+        }
       }
     }
 
