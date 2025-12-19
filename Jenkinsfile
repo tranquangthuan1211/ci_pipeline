@@ -24,8 +24,14 @@ pipeline {
     stage('Sonar Analysis') {
       steps {
         withSonarQubeEnv('sonarcloud') {
-              sh 'mvn sonar:sonar'
-        }
+              sh '''
+                mvn sonar:sonar \
+                  -Dsonar.login=$SONAR_TOKEN \
+                  -Dsonar.projectKey=tranquangthuan1211_ci_pipeline \
+                  -Dsonar.organization=tranquangthuan1211\
+                  -Dsonar.host.url=https://sonarcloud.io
+              '''
+            }
       }
     }
 
